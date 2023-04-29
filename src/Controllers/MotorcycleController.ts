@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { isValidObjectId } from 'mongoose';
 import MotorcycleService from '../Services/MotorcycleService';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 
@@ -34,33 +35,33 @@ class MotorcycleController {
     }
   }
 
-  //   public async getAll() {
-  //     const cars = await this.service.getAll();
-  //     return this.res.status(200).json(cars); 
-  //   }
+  public async getAll() {
+    const mcs = await this.service.getAll();
+    return this.res.status(200).json(mcs); 
+  }
 
-  //   public async getById() {
-  //     const { id } = this.req.params;
-  //     if (isValidObjectId(id)) {
-  //       const car = await this.service.getById(id);
-  //       return car ? this.res.status(200).json(car) 
-  //         : this.res.status(404).json({ message: 'Car not found' }); 
-  //     } return this.res.status(422).json({ message: 'Invalid mongo id' });
-  //   }
+  public async getById() {
+    const { id } = this.req.params;
+    if (isValidObjectId(id)) {
+      const mc = await this.service.getById(id);
+      return mc ? this.res.status(200).json(mc) 
+        : this.res.status(404).json({ message: 'Motorcycle not found' }); 
+    } return this.res.status(422).json({ message: 'Invalid mongo id' });
+  }
 
-  //   public async update() {
-  //     const { id } = this.req.params;
-  //     const obj = this.req.body;
+  public async update() {
+    const { id } = this.req.params;
+    const obj = this.req.body;
     
-//     if (isValidObjectId(id)) {
-//       const car = await this.service.updateCar(id, obj);
-//       if (car !== null) {
-//         return this.res.status(200).json(car);
-//       } 
-//       return this.res.status(404).json({ message: 'Car not found' });
-//     } 
-//     return this.res.status(422).json({ message: 'Invalid mongo id' });
-//   }
+    if (isValidObjectId(id)) {
+      const mc = await this.service.updateMc(id, obj);
+      if (mc !== null) {
+        return this.res.status(200).json(mc);
+      } 
+      return this.res.status(404).json({ message: 'Motorcycle not found' });
+    } 
+    return this.res.status(422).json({ message: 'Invalid mongo id' });
+  }
 }
 
 export default MotorcycleController;

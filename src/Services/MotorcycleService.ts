@@ -3,7 +3,7 @@ import IMotorcycle from '../Interfaces/IMotorcycle';
 import MotorcycleODM from '../Models/MotorcycleODM';
 
 class MotorcycleService {
-  private createCarDomain(mc: IMotorcycle | null): Motorcycle | null {
+  private createMotorcycleDomain(mc: IMotorcycle | null): Motorcycle | null {
     if (mc) {
       return new Motorcycle(mc);
     }
@@ -14,27 +14,27 @@ class MotorcycleService {
     const mcODM = new MotorcycleODM();
     const newMc = await mcODM.create(mc);
 
-    return this.createCarDomain(newMc);
+    return this.createMotorcycleDomain(newMc);
   }
 
-  //   public async getAll() {
-  //     const carODM = new CarODM();
-  //     const getCars = await carODM.getAll();
-  //     const allCars = getCars.map((car) => this.createCarDomain(car)); 
-  //     return allCars;
-  //   }
+  public async getAll() {
+    const mcODM = new MotorcycleODM();
+    const getMc = await mcODM.getAll();
+    const allMc = getMc.map((mc) => this.createMotorcycleDomain(mc)); 
+    return allMc;
+  }
 
-  //   public async getById(id: string) {
-  //     const carODM = new CarODM();
-  //     const car = await carODM.getById(id);
-  //     return this.createCarDomain(car);
-  //   }
+  public async getById(id: string) {
+    const mcODM = new MotorcycleODM();
+    const mc = await mcODM.getById(id);
+    return this.createMotorcycleDomain(mc);
+  }
 
-//   public async updateCar(id: string, obj: ICar) {
-//     const carODM = new CarODM();
-//     const car = await carODM.update(id, obj);
-//     return this.createCarDomain(car);
-//   }
+  public async updateMc(id: string, obj: IMotorcycle) {
+    const mcODM = new MotorcycleODM();
+    const mc = await mcODM.update(id, obj);
+    return this.createMotorcycleDomain(mc);
+  }
 }
 
 export default MotorcycleService;
