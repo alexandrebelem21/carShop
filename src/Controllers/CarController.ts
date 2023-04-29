@@ -44,8 +44,8 @@ class CarController {
     const { id } = this.req.params;
     if (isValidObjectId(id)) {
       const car = await this.service.getById(id);
-      if (car) return this.res.status(200).json(car);
-      return this.res.status(404).json({ message: 'Car not found' }); 
+      return car ? this.res.status(200).json(car) 
+        : this.res.status(404).json({ message: 'Car not found' }); 
     } return this.res.status(422).json({ message: 'Invalid mongo id' });
   }
 }
